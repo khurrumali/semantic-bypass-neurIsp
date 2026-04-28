@@ -1,0 +1,432 @@
+{
+  "analysis": {
+    "mandatory_metrics": [
+      "SHR",
+      "POR",
+      "DIVR"
+    ],
+    "variant_results": {
+      "baseline_nl2sql": {
+        "any_violation": {
+          "count": 13,
+          "rate": 0.43333333333333335
+        },
+        "by_dataset": {
+          "spider": {
+            "any_violation": {
+              "count": 13,
+              "rate": 0.43333333333333335
+            },
+            "examples_evaluated": 30,
+            "metrics": {
+              "DIVR": {
+                "detected": 0,
+                "detection_rate": 0.0,
+                "total": 30
+              },
+              "POR": {
+                "detected": 10,
+                "detection_rate": 0.3333333333333333,
+                "total": 30
+              },
+              "SHR": {
+                "detected": 4,
+                "detection_rate": 0.13333333333333333,
+                "total": 30
+              }
+            }
+          }
+        },
+        "examples_evaluated": 30,
+        "metrics": {
+          "DIVR": {
+            "detected": 0,
+            "detection_rate": 0.0,
+            "total": 30
+          },
+          "POR": {
+            "detected": 10,
+            "detection_rate": 0.3333333333333333,
+            "total": 30
+          },
+          "SHR": {
+            "detected": 4,
+            "detection_rate": 0.13333333333333333,
+            "total": 30
+          }
+        }
+      },
+      "constraint_explicit": {
+        "any_violation": {
+          "count": 5,
+          "rate": 0.16666666666666666
+        },
+        "by_dataset": {
+          "spider": {
+            "any_violation": {
+              "count": 5,
+              "rate": 0.16666666666666666
+            },
+            "examples_evaluated": 30,
+            "metrics": {
+              "DIVR": {
+                "detected": 0,
+                "detection_rate": 0.0,
+                "total": 30
+              },
+              "POR": {
+                "detected": 2,
+                "detection_rate": 0.06666666666666667,
+                "total": 30
+              },
+              "SHR": {
+                "detected": 3,
+                "detection_rate": 0.1,
+                "total": 30
+              }
+            }
+          }
+        },
+        "examples_evaluated": 30,
+        "metrics": {
+          "DIVR": {
+            "detected": 0,
+            "detection_rate": 0.0,
+            "total": 30
+          },
+          "POR": {
+            "detected": 2,
+            "detection_rate": 0.06666666666666667,
+            "total": 30
+          },
+          "SHR": {
+            "detected": 3,
+            "detection_rate": 0.1,
+            "total": 30
+          }
+        }
+      },
+      "formal_spec": {
+        "any_violation": {
+          "count": 12,
+          "rate": 0.4
+        },
+        "by_dataset": {
+          "spider": {
+            "any_violation": {
+              "count": 12,
+              "rate": 0.4
+            },
+            "examples_evaluated": 30,
+            "metrics": {
+              "DIVR": {
+                "detected": 0,
+                "detection_rate": 0.0,
+                "total": 30
+              },
+              "POR": {
+                "detected": 9,
+                "detection_rate": 0.3,
+                "total": 30
+              },
+              "SHR": {
+                "detected": 4,
+                "detection_rate": 0.13333333333333333,
+                "total": 30
+              }
+            }
+          }
+        },
+        "examples_evaluated": 30,
+        "metrics": {
+          "DIVR": {
+            "detected": 0,
+            "detection_rate": 0.0,
+            "total": 30
+          },
+          "POR": {
+            "detected": 9,
+            "detection_rate": 0.3,
+            "total": 30
+          },
+          "SHR": {
+            "detected": 4,
+            "detection_rate": 0.13333333333333333,
+            "total": 30
+          }
+        }
+      }
+    }
+  },
+  "config": {
+    "fallback_to_mock_on_error": true,
+    "provider_requested": "ollama",
+    "provider_resolved": "ollama",
+    "sample_predictions": 5,
+    "seed": 42,
+    "spider_dir": "/Volumes/Khurrum/Semantic_Bypass_NeurISP/spider_data",
+    "spider_sample_size": 30,
+    "spider_subset": "/Volumes/Khurrum/Semantic_Bypass_NeurISP/project_files/data/spider_subset/phase2_spider_subset.jsonl",
+    "synthetic_dataset": "/Volumes/Khurrum/Semantic_Bypass_NeurISP/project_files/data/synthetic/phase1_synthetic.jsonl",
+    "synthetic_sample_size": 0
+  },
+  "dataset": {
+    "components": {
+      "spider": {
+        "candidates": 300,
+        "requested": 30,
+        "selected": 30,
+        "source": "subset_jsonl:/Volumes/Khurrum/Semantic_Bypass_NeurISP/project_files/data/spider_subset/phase2_spider_subset.jsonl"
+      },
+      "synthetic": {
+        "candidates": 0,
+        "requested": 0,
+        "selected": 0,
+        "source": "disabled"
+      }
+    },
+    "selected_total": 30,
+    "warnings": []
+  },
+  "generated_at_utc": "2026-04-28T03:39:53.823785+00:00",
+  "json_schema_version": "1.0",
+  "phase": "phase3_prompting",
+  "prompt_variants": [
+    {
+      "description": "Standard direct NL2SQL instruction with no explicit constraint checklist.",
+      "prompt_id": "baseline_nl2sql",
+      "system_prompt": "You are an NL2SQL assistant. Produce exactly one SQL query and no explanation.",
+      "title": "Baseline NL2SQL",
+      "user_instruction": "Translate the question into a single executable SQL query using the provided schema."
+    },
+    {
+      "description": "Explicitly names SHR/POR/DIVR constraints before generation.",
+      "prompt_id": "constraint_explicit",
+      "system_prompt": "You are an NL2SQL assistant. Produce exactly one SQL query and no explanation. Before finalizing, satisfy these hard constraints: SHR (schema references must exist), POR (avoid hardcoded predicate literals when a parameter can be used), and DIVR (literal/type compatibility in predicates).",
+      "title": "Constraint-Explicit",
+      "user_instruction": "Generate SQL that obeys SHR/POR/DIVR. Use named placeholders (for example :value) for runtime values instead of hardcoded literals."
+    },
+    {
+      "description": "Frames SQL generation as a constrained specification-satisfaction task.",
+      "prompt_id": "formal_spec",
+      "system_prompt": "You are an NL2SQL synthesis engine. Output exactly one SQL query. Treat generation as specification satisfaction under three invariants: (1) schema soundness (SHR), (2) parameterized predicates over literals (POR), and (3) operand domain compatibility (DIVR). If uncertain, prefer a conservative query that still respects all invariants.",
+      "title": "Formal-Spec",
+      "user_instruction": "Construct SQL that satisfies the question and all invariants. Use only declared tables/columns and parameter placeholders for external values."
+    }
+  ],
+  "provider": {
+    "fallback_error_count": 0,
+    "fallback_errors": [],
+    "resolved": "ollama"
+  },
+  "samples": {
+    "max_per_variant": 5,
+    "predictions": {
+      "baseline_nl2sql": [
+        {
+          "core_flags": {
+            "DIVR": false,
+            "POR": false,
+            "SHR": true
+          },
+          "dataset": "spider",
+          "example_id": "spider:train_spider:01682",
+          "generated_sql": "SELECT Name FROM artist WHERE Artist_ID NOT IN (SELECT Artist_ID FROM exhibition WHERE Year = 2004);",
+          "provider_used": "ollama",
+          "question": "Show all artist names who didn't have an exhibition in 2004.",
+          "reference_sql": "SELECT name FROM artist EXCEPT SELECT T2.name FROM exhibition AS T1 JOIN artist AS T2 ON T1.artist_id  =  T2.artist_id WHERE T1.year  =  2004"
+        },
+        {
+          "core_flags": {
+            "DIVR": false,
+            "POR": true,
+            "SHR": true
+          },
+          "dataset": "spider",
+          "example_id": "spider:train_spider:05163",
+          "generated_sql": "SELECT w.Workshop_Group_Name\nFROM Drama_Workshop_Groups w\nJOIN Bookings b ON w.Workshop_Group_ID = b.Workshop_Group_ID\nWHERE b.Status_Code = 'stop';",
+          "provider_used": "ollama",
+          "question": "What are the names of the workshop groups that have bookings with status code \"stop\"?",
+          "reference_sql": "SELECT T2.Store_Name FROM Bookings AS T1 JOIN Drama_Workshop_Groups AS T2 ON T1.Workshop_Group_ID  =  T2.Workshop_Group_ID WHERE T1.Status_Code  =  \"stop\""
+        },
+        {
+          "core_flags": {
+            "DIVR": false,
+            "POR": true,
+            "SHR": false
+          },
+          "dataset": "spider",
+          "example_id": "spider:train_others:00678",
+          "generated_sql": "SELECT T3.keyphraseName FROM author AS T1 JOIN writes AS T2 ON T1.authorId = T2.authorId JOIN paperKeyphrase AS T4 ON T2.paperId = T4.paperId JOIN keyphrase AS T3 ON T4.keyphraseId = T3.keyphraseId WHERE T1.authorName = 'Luke Zettlemoyer'",
+          "provider_used": "ollama",
+          "question": "What keywords are in papers by Luke Zettlemoyer ?",
+          "reference_sql": "SELECT DISTINCT t1.keyphraseid FROM paperkeyphrase AS t2 JOIN keyphrase AS t1 ON t2.keyphraseid  =  t1.keyphraseid JOIN paper AS t3 ON t3.paperid  =  t2.paperid JOIN writes AS t4 ON t4.paperid  =  t3.paperid JOIN author AS t5 ON t4.authorid  =  t5.authorid WHERE t5.authorname  =  \"Luke Zettlemoyer\";"
+        },
+        {
+          "core_flags": {
+            "DIVR": false,
+            "POR": true,
+            "SHR": false
+          },
+          "dataset": "spider",
+          "example_id": "spider:train_spider:01228",
+          "generated_sql": "SELECT DISTINCT T2.booking_status_code FROM Apartments AS T1 JOIN Apartment_Bookings AS T2 ON T1.apt_id = T2.apt_id WHERE T1.apt_number = 'Suite 634'",
+          "provider_used": "ollama",
+          "question": "Tell me the booking status code for the apartment with number \"Suite 634\".",
+          "reference_sql": "SELECT T1.booking_status_code FROM Apartment_Bookings AS T1 JOIN Apartments AS T2 ON T1.apt_id  =  T2.apt_id WHERE T2.apt_number  =  \"Suite 634\""
+        },
+        {
+          "core_flags": {
+            "DIVR": false,
+            "POR": false,
+            "SHR": false
+          },
+          "dataset": "spider",
+          "example_id": "spider:dev:01019",
+          "generated_sql": "SELECT T1.Title, T2.Name FROM song AS T1 JOIN singer AS T2 ON T1.Singer_ID = T2.Singer_ID",
+          "provider_used": "ollama",
+          "question": "Show titles of songs and names of singers.",
+          "reference_sql": "SELECT T2.Title ,  T1.Name FROM singer AS T1 JOIN song AS T2 ON T1.Singer_ID  =  T2.Singer_ID"
+        }
+      ],
+      "constraint_explicit": [
+        {
+          "core_flags": {
+            "DIVR": false,
+            "POR": false,
+            "SHR": true
+          },
+          "dataset": "spider",
+          "example_id": "spider:train_spider:01682",
+          "generated_sql": "SELECT Name \nFROM artist \nWHERE Artist_ID NOT IN (\n    SELECT Artist_ID \n    FROM exhibition \n    WHERE Year = 2004\n);",
+          "provider_used": "ollama",
+          "question": "Show all artist names who didn't have an exhibition in 2004.",
+          "reference_sql": "SELECT name FROM artist EXCEPT SELECT T2.name FROM exhibition AS T1 JOIN artist AS T2 ON T1.artist_id  =  T2.artist_id WHERE T1.year  =  2004"
+        },
+        {
+          "core_flags": {
+            "DIVR": false,
+            "POR": false,
+            "SHR": false
+          },
+          "dataset": "spider",
+          "example_id": "spider:train_spider:05163",
+          "generated_sql": "SELECT Workshop_Group_Name \nFROM Drama_Workshop_Groups \nWHERE Workshop_Group_ID IN (\n    SELECT Workshop_Group_ID \n    FROM Bookings \n    WHERE Status_Code = :status_code\n);",
+          "provider_used": "ollama",
+          "question": "What are the names of the workshop groups that have bookings with status code \"stop\"?",
+          "reference_sql": "SELECT T2.Store_Name FROM Bookings AS T1 JOIN Drama_Workshop_Groups AS T2 ON T1.Workshop_Group_ID  =  T2.Workshop_Group_ID WHERE T1.Status_Code  =  \"stop\""
+        },
+        {
+          "core_flags": {
+            "DIVR": false,
+            "POR": false,
+            "SHR": false
+          },
+          "dataset": "spider",
+          "example_id": "spider:train_others:00678",
+          "generated_sql": "SELECT p.keyphraseName\nFROM keyphrase p\nJOIN paperKeyphrase pk ON p.keyphraseId = pk.keyphraseId\nJOIN paper pa ON pk.paperId = pa.paperId\nJOIN writes w ON pa.paperId = w.paperId\nJOIN author a ON w.authorId = a.authorId\nWHERE a.authorName = :authorName;",
+          "provider_used": "ollama",
+          "question": "What keywords are in papers by Luke Zettlemoyer ?",
+          "reference_sql": "SELECT DISTINCT t1.keyphraseid FROM paperkeyphrase AS t2 JOIN keyphrase AS t1 ON t2.keyphraseid  =  t1.keyphraseid JOIN paper AS t3 ON t3.paperid  =  t2.paperid JOIN writes AS t4 ON t4.paperid  =  t3.paperid JOIN author AS t5 ON t4.authorid  =  t5.authorid WHERE t5.authorname  =  \"Luke Zettlemoyer\";"
+        },
+        {
+          "core_flags": {
+            "DIVR": false,
+            "POR": false,
+            "SHR": false
+          },
+          "dataset": "spider",
+          "example_id": "spider:train_spider:01228",
+          "generated_sql": "SELECT ab.booking_status_code\nFROM Apartment_Bookings ab\nJOIN Apartments a ON ab.apt_id = a.apt_id\nWHERE a.apt_number = :apartment_number;",
+          "provider_used": "ollama",
+          "question": "Tell me the booking status code for the apartment with number \"Suite 634\".",
+          "reference_sql": "SELECT T1.booking_status_code FROM Apartment_Bookings AS T1 JOIN Apartments AS T2 ON T1.apt_id  =  T2.apt_id WHERE T2.apt_number  =  \"Suite 634\""
+        },
+        {
+          "core_flags": {
+            "DIVR": false,
+            "POR": false,
+            "SHR": false
+          },
+          "dataset": "spider",
+          "example_id": "spider:dev:01019",
+          "generated_sql": "SELECT s.Title, sn.Name \nFROM song s \nJOIN singer sn ON s.Singer_ID = sn.Singer_ID;",
+          "provider_used": "ollama",
+          "question": "Show titles of songs and names of singers.",
+          "reference_sql": "SELECT T2.Title ,  T1.Name FROM singer AS T1 JOIN song AS T2 ON T1.Singer_ID  =  T2.Singer_ID"
+        }
+      ],
+      "formal_spec": [
+        {
+          "core_flags": {
+            "DIVR": false,
+            "POR": false,
+            "SHR": true
+          },
+          "dataset": "spider",
+          "example_id": "spider:train_spider:01682",
+          "generated_sql": "SELECT Name FROM artist WHERE Artist_ID NOT IN (SELECT Artist_ID FROM exhibition WHERE Year = 2004);",
+          "provider_used": "ollama",
+          "question": "Show all artist names who didn't have an exhibition in 2004.",
+          "reference_sql": "SELECT name FROM artist EXCEPT SELECT T2.name FROM exhibition AS T1 JOIN artist AS T2 ON T1.artist_id  =  T2.artist_id WHERE T1.year  =  2004"
+        },
+        {
+          "core_flags": {
+            "DIVR": false,
+            "POR": true,
+            "SHR": true
+          },
+          "dataset": "spider",
+          "example_id": "spider:train_spider:05163",
+          "generated_sql": "SELECT w.Workshop_Group_Name\nFROM Drama_Workshop_Groups w\nJOIN Bookings b ON w.Workshop_Group_ID = b.Workshop_Group_ID\nWHERE b.Status_Code = 'stop';",
+          "provider_used": "ollama",
+          "question": "What are the names of the workshop groups that have bookings with status code \"stop\"?",
+          "reference_sql": "SELECT T2.Store_Name FROM Bookings AS T1 JOIN Drama_Workshop_Groups AS T2 ON T1.Workshop_Group_ID  =  T2.Workshop_Group_ID WHERE T1.Status_Code  =  \"stop\""
+        },
+        {
+          "core_flags": {
+            "DIVR": false,
+            "POR": true,
+            "SHR": false
+          },
+          "dataset": "spider",
+          "example_id": "spider:train_others:00678",
+          "generated_sql": "SELECT DISTINCT p.keyphraseName\nFROM keyphrase p\nJOIN paperKeyphrase pk ON p.keyphraseId = pk.keyphraseId\nJOIN paper pa ON pk.paperId = pa.paperId\nJOIN writes w ON pa.paperId = w.paperId\nJOIN author a ON w.authorId = a.authorId\nWHERE a.authorName = 'Luke Zettlemoyer';",
+          "provider_used": "ollama",
+          "question": "What keywords are in papers by Luke Zettlemoyer ?",
+          "reference_sql": "SELECT DISTINCT t1.keyphraseid FROM paperkeyphrase AS t2 JOIN keyphrase AS t1 ON t2.keyphraseid  =  t1.keyphraseid JOIN paper AS t3 ON t3.paperid  =  t2.paperid JOIN writes AS t4 ON t4.paperid  =  t3.paperid JOIN author AS t5 ON t4.authorid  =  t5.authorid WHERE t5.authorname  =  \"Luke Zettlemoyer\";"
+        },
+        {
+          "core_flags": {
+            "DIVR": false,
+            "POR": true,
+            "SHR": false
+          },
+          "dataset": "spider",
+          "example_id": "spider:train_spider:01228",
+          "generated_sql": "SELECT ab.booking_status_code\nFROM Apartment_Bookings ab\nJOIN Apartments a ON ab.apt_id = a.apt_id\nWHERE a.apt_number = 'Suite 634';",
+          "provider_used": "ollama",
+          "question": "Tell me the booking status code for the apartment with number \"Suite 634\".",
+          "reference_sql": "SELECT T1.booking_status_code FROM Apartment_Bookings AS T1 JOIN Apartments AS T2 ON T1.apt_id  =  T2.apt_id WHERE T2.apt_number  =  \"Suite 634\""
+        },
+        {
+          "core_flags": {
+            "DIVR": false,
+            "POR": false,
+            "SHR": false
+          },
+          "dataset": "spider",
+          "example_id": "spider:dev:01019",
+          "generated_sql": "SELECT s.Title, si.Name\nFROM song s\nJOIN singer si ON s.Singer_ID = si.Singer_ID;",
+          "provider_used": "ollama",
+          "question": "Show titles of songs and names of singers.",
+          "reference_sql": "SELECT T2.Title ,  T1.Name FROM singer AS T1 JOIN song AS T2 ON T1.Singer_ID  =  T2.Singer_ID"
+        }
+      ]
+    }
+  },
+  "scope": {
+    "guardrail": "Results are detector-based and scoped to sampled Spider/synthetic inputs. They should not be interpreted as execution accuracy or causal proof.",
+    "summary": "Prompt ablation using checker-detected SHR/POR/DIVR rates only."
+  }
+}

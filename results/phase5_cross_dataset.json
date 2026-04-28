@@ -1,0 +1,398 @@
+{
+  "config": {
+    "artifact_dir": "/Volumes/Khurrum/Semantic_Bypass_NeurISP/project_files/data/cross_dataset",
+    "db_discovery_enabled": true,
+    "eicu_dir": "/Volumes/Khurrum/Semantic_Bypass_NeurISP/project_files/data/eicu",
+    "eicu_max_examples": 120,
+    "sample_limit": 5,
+    "spider2_lite_dir": "/Volumes/Khurrum/Semantic_Bypass_NeurISP/project_files/data/spider2_lite",
+    "spider2_max_examples": 120,
+    "spider_dir": "/Volumes/Khurrum/Semantic_Bypass_NeurISP/spider_data",
+    "spider_max_examples": 180,
+    "spider_subset_path": "/Volumes/Khurrum/Semantic_Bypass_NeurISP/project_files/data/spider_subset/phase2_spider_subset.jsonl",
+    "synthetic_max_examples": 180,
+    "synthetic_path": "/Volumes/Khurrum/Semantic_Bypass_NeurISP/project_files/data/synthetic/phase1_synthetic.jsonl"
+  },
+  "core_metrics": [
+    "SHR",
+    "POR",
+    "DIVR"
+  ],
+  "datasets": {
+    "eicu_in_db": {
+      "analysis": null,
+      "availability": {
+        "available_locally": false,
+        "proxy_kind": "missing-local-and-db",
+        "reason": "No local eICU dataset rows discovered; DB schema probe did not yield analyzable schema.",
+        "source_paths": [
+          "/Volumes/Khurrum/Semantic_Bypass_NeurISP/project_files/data/eicu"
+        ],
+        "status": "missing",
+        "uses_proxy": true,
+        "warnings": [
+          "DB discovery status: credentials-missing",
+          "DB_NAME/DB_USER are not configured for optional eICU DB discovery."
+        ]
+      },
+      "title": "eICU-in-DB"
+    },
+    "spider2_lite": {
+      "analysis": null,
+      "availability": {
+        "available_locally": false,
+        "proxy_kind": "dataset-missing",
+        "reason": "Spider 2.0 Lite directory not found locally.",
+        "source_paths": [
+          "/Volumes/Khurrum/Semantic_Bypass_NeurISP/project_files/data/spider2_lite"
+        ],
+        "status": "missing",
+        "uses_proxy": true,
+        "warnings": []
+      },
+      "title": "Spider 2.0 Lite"
+    },
+    "spider_subset": {
+      "analysis": {
+        "all_metrics": {
+          "DIVR": {
+            "detected": 1,
+            "detection_rate": 0.005555555555555556,
+            "implemented_count": 180,
+            "not_implemented_count": 0,
+            "notes": [],
+            "total": 180
+          },
+          "FDVR": {
+            "detected": 0,
+            "detection_rate": 0.0,
+            "implemented_count": 0,
+            "not_implemented_count": 180,
+            "notes": [
+              "TODO: functional dependency violation checker not implemented yet.",
+              "TODO: functional dependency violation checker not implemented yet.",
+              "TODO: functional dependency violation checker not implemented yet.",
+              "TODO: functional dependency violation checker not implemented yet.",
+              "TODO: functional dependency violation checker not implemented yet."
+            ],
+            "total": 180
+          },
+          "POR": {
+            "detected": 72,
+            "detection_rate": 0.4,
+            "implemented_count": 180,
+            "not_implemented_count": 0,
+            "notes": [],
+            "total": 180
+          },
+          "SHR": {
+            "detected": 8,
+            "detection_rate": 0.044444444444444446,
+            "implemented_count": 180,
+            "not_implemented_count": 0,
+            "notes": [],
+            "total": 180
+          },
+          "SJR": {
+            "detected": 0,
+            "detection_rate": 0.0,
+            "implemented_count": 0,
+            "not_implemented_count": 180,
+            "notes": [
+              "TODO: semantic join relevance checker not implemented yet.",
+              "TODO: semantic join relevance checker not implemented yet.",
+              "TODO: semantic join relevance checker not implemented yet.",
+              "TODO: semantic join relevance checker not implemented yet.",
+              "TODO: semantic join relevance checker not implemented yet."
+            ],
+            "total": 180
+          }
+        },
+        "any_core_violation": {
+          "count": 80,
+          "rate": 0.4444444444444444
+        },
+        "claim_scope": "Checker rates on local Spider subset SQL; these are not execution-accuracy metrics.",
+        "core_metrics": {
+          "DIVR": {
+            "detected": 1,
+            "detection_rate": 0.005555555555555556,
+            "implemented_count": 180,
+            "not_implemented_count": 0,
+            "notes": [],
+            "total": 180
+          },
+          "POR": {
+            "detected": 72,
+            "detection_rate": 0.4,
+            "implemented_count": 180,
+            "not_implemented_count": 0,
+            "notes": [],
+            "total": 180
+          },
+          "SHR": {
+            "detected": 8,
+            "detection_rate": 0.044444444444444446,
+            "implemented_count": 180,
+            "not_implemented_count": 0,
+            "notes": [],
+            "total": 180
+          }
+        },
+        "examples_evaluated": 180,
+        "samples": [
+          {
+            "core_flags": {
+              "DIVR": false,
+              "POR": true,
+              "SHR": false
+            },
+            "example_id": "train_spider:04031",
+            "question": "Find the last names of students studying in room 111.",
+            "source": "train_spider.json",
+            "sql": "SELECT lastname FROM list WHERE classroom  =  111"
+          },
+          {
+            "core_flags": {
+              "DIVR": false,
+              "POR": false,
+              "SHR": false
+            },
+            "example_id": "train_spider:04830",
+            "question": "List the names of aircrafts and that won matches at least twice.",
+            "source": "train_spider.json",
+            "sql": "SELECT T1.Aircraft FROM aircraft AS T1 JOIN MATCH AS T2 ON T1.Aircraft_ID  =  T2.Winning_Aircraft GROUP BY T2.Winning_Aircraft HAVING COUNT(*)  >=  2"
+          },
+          {
+            "core_flags": {
+              "DIVR": false,
+              "POR": true,
+              "SHR": false
+            },
+            "example_id": "train_spider:03607",
+            "question": "What are the names and number of works for all artists who have sung at least one song in English?",
+            "source": "train_spider.json",
+            "sql": "SELECT T1.artist_name ,  count(*) FROM artist AS T1 JOIN song AS T2 ON T1.artist_name  =  T2.artist_name WHERE T2.languages  =  \"english\" GROUP BY T2.artist_name HAVING count(*)  >=  1"
+          },
+          {
+            "core_flags": {
+              "DIVR": false,
+              "POR": false,
+              "SHR": false
+            },
+            "example_id": "train_spider:00341",
+            "question": "Find the total number of catalog contents.",
+            "source": "train_spider.json",
+            "sql": "SELECT count(*) FROM catalog_contents"
+          },
+          {
+            "core_flags": {
+              "DIVR": false,
+              "POR": true,
+              "SHR": false
+            },
+            "example_id": "train_spider:03835",
+            "question": "List the dates of enrollment and completion of the student with family name \"Zieme\" and personal name \"Bernie\".",
+            "source": "train_spider.json",
+            "sql": "SELECT T1.date_of_enrolment ,  T1.date_of_completion FROM Student_Course_Enrolment AS T1 JOIN Students AS T2 ON T1.student_id  =  T2.student_id WHERE T2.family_name  =  \"Zieme\" AND T2.personal_name  =  \"Bernie\""
+          }
+        ]
+      },
+      "availability": {
+        "artifact_jsonl": "/Volumes/Khurrum/Semantic_Bypass_NeurISP/project_files/data/cross_dataset/spider_subset/phase5_spider_subset_sample.jsonl",
+        "available_locally": true,
+        "candidate_examples": 300,
+        "selected_examples": 180,
+        "source_paths": [
+          "/Volumes/Khurrum/Semantic_Bypass_NeurISP/project_files/data/spider_subset/phase2_spider_subset.jsonl",
+          "/Volumes/Khurrum/Semantic_Bypass_NeurISP/spider_data"
+        ],
+        "status": "analyzed",
+        "uses_proxy": false,
+        "warnings": []
+      },
+      "title": "Spider subset"
+    },
+    "synthetic_suite": {
+      "analysis": {
+        "all_metrics": {
+          "DIVR": {
+            "detected": 53,
+            "detection_rate": 0.29444444444444445,
+            "implemented_count": 180,
+            "not_implemented_count": 0,
+            "notes": [],
+            "total": 180
+          },
+          "FDVR": {
+            "detected": 0,
+            "detection_rate": 0.0,
+            "implemented_count": 0,
+            "not_implemented_count": 180,
+            "notes": [
+              "TODO: functional dependency violation checker not implemented yet.",
+              "TODO: functional dependency violation checker not implemented yet.",
+              "TODO: functional dependency violation checker not implemented yet.",
+              "TODO: functional dependency violation checker not implemented yet.",
+              "TODO: functional dependency violation checker not implemented yet."
+            ],
+            "total": 180
+          },
+          "POR": {
+            "detected": 109,
+            "detection_rate": 0.6055555555555555,
+            "implemented_count": 180,
+            "not_implemented_count": 0,
+            "notes": [],
+            "total": 180
+          },
+          "SHR": {
+            "detected": 48,
+            "detection_rate": 0.26666666666666666,
+            "implemented_count": 180,
+            "not_implemented_count": 0,
+            "notes": [],
+            "total": 180
+          },
+          "SJR": {
+            "detected": 0,
+            "detection_rate": 0.0,
+            "implemented_count": 0,
+            "not_implemented_count": 180,
+            "notes": [
+              "TODO: semantic join relevance checker not implemented yet.",
+              "TODO: semantic join relevance checker not implemented yet.",
+              "TODO: semantic join relevance checker not implemented yet.",
+              "TODO: semantic join relevance checker not implemented yet.",
+              "TODO: semantic join relevance checker not implemented yet."
+            ],
+            "total": 180
+          }
+        },
+        "any_core_violation": {
+          "count": 157,
+          "rate": 0.8722222222222222
+        },
+        "claim_scope": "Template-based synthetic records; detector-rate diagnostics only.",
+        "core_metrics": {
+          "DIVR": {
+            "detected": 53,
+            "detection_rate": 0.29444444444444445,
+            "implemented_count": 180,
+            "not_implemented_count": 0,
+            "notes": [],
+            "total": 180
+          },
+          "POR": {
+            "detected": 109,
+            "detection_rate": 0.6055555555555555,
+            "implemented_count": 180,
+            "not_implemented_count": 0,
+            "notes": [],
+            "total": 180
+          },
+          "SHR": {
+            "detected": 48,
+            "detection_rate": 0.26666666666666666,
+            "implemented_count": 180,
+            "not_implemented_count": 0,
+            "notes": [],
+            "total": 180
+          }
+        },
+        "examples_evaluated": 180,
+        "samples": [
+          {
+            "core_flags": {
+              "DIVR": true,
+              "POR": true,
+              "SHR": false
+            },
+            "example_id": "phase1-divr-008",
+            "question": "DIVR probe: compare numeric salary to text token 'tier-3' (variant 8).",
+            "source": "phase1_synthetic.jsonl",
+            "sql": "SELECT e.name FROM employees e WHERE e.salary = 'tier-3';"
+          },
+          {
+            "core_flags": {
+              "DIVR": false,
+              "POR": false,
+              "SHR": true
+            },
+            "example_id": "phase1-shr-056",
+            "question": "SHR probe: join unknown table employee (variant 1).",
+            "source": "phase1_synthetic.jsonl",
+            "sql": "SELECT e.name FROM employees e JOIN employee d ON e.department_id = d.id WHERE e.id = :employee_id_1;"
+          },
+          {
+            "core_flags": {
+              "DIVR": false,
+              "POR": true,
+              "SHR": false
+            },
+            "example_id": "phase1-por-011",
+            "question": "POR probe: hardcode department id 6 (variant 6).",
+            "source": "phase1_synthetic.jsonl",
+            "sql": "SELECT e.name FROM employees e WHERE e.department_id = 6;"
+          },
+          {
+            "core_flags": {
+              "DIVR": true,
+              "POR": true,
+              "SHR": false
+            },
+            "example_id": "phase1-divr-056",
+            "question": "DIVR probe: numeric salary IN text set ('foo', 'bar') (variant 6).",
+            "source": "phase1_synthetic.jsonl",
+            "sql": "SELECT e.name FROM employees e WHERE e.salary IN ('foo', 'bar');"
+          },
+          {
+            "core_flags": {
+              "DIVR": false,
+              "POR": false,
+              "SHR": true
+            },
+            "example_id": "phase1-shr-047",
+            "question": "SHR probe: use unknown predicate field seniority_band (variant 16).",
+            "source": "phase1_synthetic.jsonl",
+            "sql": "SELECT e.name FROM employees e WHERE e.seniority_band = :value_16;"
+          }
+        ]
+      },
+      "availability": {
+        "artifact_jsonl": "/Volumes/Khurrum/Semantic_Bypass_NeurISP/project_files/data/cross_dataset/synthetic_suite/phase5_synthetic_suite_subset.jsonl",
+        "available_locally": true,
+        "candidate_examples": 210,
+        "selected_examples": 180,
+        "source_paths": [
+          "/Volumes/Khurrum/Semantic_Bypass_NeurISP/project_files/data/synthetic/phase1_synthetic.jsonl"
+        ],
+        "status": "analyzed",
+        "uses_proxy": false,
+        "warnings": []
+      },
+      "title": "Synthetic suite"
+    }
+  },
+  "generated_at_utc": "2026-04-27T23:17:51.783266+00:00",
+  "phase": "phase5_cross_dataset",
+  "scope_guardrails": [
+    "Rates are checker detections over discovered local artifacts only.",
+    "Missing datasets are represented as placeholders/proxy metadata without fabricated performance claims.",
+    "Proxy-analyzed datasets are explicitly labeled and must not be interpreted as benchmark generalization evidence."
+  ],
+  "seed": 42,
+  "summary": {
+    "analyzed_dataset_ids": [
+      "synthetic_suite",
+      "spider_subset"
+    ],
+    "datasets_analyzed": 2,
+    "datasets_missing_or_placeholder": 2,
+    "datasets_total": 4,
+    "missing_dataset_ids": [
+      "eicu_in_db",
+      "spider2_lite"
+    ]
+  }
+}
